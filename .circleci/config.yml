@@ -199,7 +199,6 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - install-aws-cli
       - run:
           name: Run migrations
           command: |
@@ -263,7 +262,6 @@ jobs:
       - image: alpine 
     steps:
       - checkout
-      - install-aws-cli
       - run:
           name: Install dependencies
           command: |
