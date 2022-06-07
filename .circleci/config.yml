@@ -129,6 +129,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install tar and zip utilities
+          command: yum -y install tar gzip
+      - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
@@ -164,9 +167,6 @@ jobs:
       - checkout
       # Add ssh keys with fingerprint
       # attach workspace
-      - run:
-          name: Install tar and zip utilities
-          command: yum -y install tar gzip
       - run:
           name: Install dependencies
           command: |
