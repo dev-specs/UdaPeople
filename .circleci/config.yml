@@ -169,18 +169,20 @@ jobs:
       - image: ansible/ansible
     steps:
       - checkout
-      # Add ssh keys with fingerprint
-      # attach workspace
-      - run:
-          name: Install dependencies
-          command: |
-            # Your code here
-            exit 1
+      - add_ssh_keys:
+          fingerprints: ["bf:fa:cd:4d:a3:9b:5d:ca:bf:d3:59:3d:ad:e1:0d:f1"]
+      - attach_workspace:
+          at: ~/
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       # Your code here
+      #       exit 1
       - run:
           name: Configure server
           command: |
-            # Your code here
-            exit 1
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment     
 
   run-migrations:
