@@ -165,6 +165,9 @@ jobs:
       # Add ssh keys with fingerprint
       # attach workspace
       - run:
+          name: Install tar and zip utilities
+          command: yum -y install tar gzip
+      - run:
           name: Install dependencies
           command: |
             # Your code here
