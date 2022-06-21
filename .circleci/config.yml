@@ -39,10 +39,9 @@ commands:
             SUCCESS = (curl --insecure https://kvdb.io/AvkUQoZDemUg9AuoubLxCq/migration_<< parameters.Workflow_ID >>)
             if(( $SUCCESS==1 )); 
             then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
+              cd ~/project/backend
+              npm install
+              npm run migration:revert
             fi
             
 jobs:
