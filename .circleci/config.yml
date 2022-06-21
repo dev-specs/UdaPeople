@@ -227,6 +227,7 @@ jobs:
             yum install -y curl tar sudo
             curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
             yum install -y nodejs
+            yum -y install tar gzip
       - run:
           name: Get backend url
           command: |
