@@ -167,10 +167,11 @@ jobs:
               --region us-west-2 --query "Reservations[*].Instances[*].PublicIpAddress" \
               --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text)  
             echo $BACKEND_API_URL >> .circleci/ansible/inventory.txt
+            echo $BACKEND_API_URL
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
+            - ./.circleci/ansible/inventory.txt
       - destroy-environment     
 
   configure-infrastructure:
