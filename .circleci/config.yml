@@ -192,12 +192,12 @@ jobs:
       - run:
           name: Configure server
           command: |
-            export BACKEND_API_URL=$(aws ec2 describe-instances \
-              --region us-east-1 --query "Reservations[*].Instances[*].PublicIpAddress" \
-              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text)  
-            echo $BACKEND_API_URL >> .circleci/ansible/inventory.txt
-            
-            cat .circleci/ansible/inventory.txt
+            #export BACKEND_API_URL=$(aws ec2 describe-instances \
+            #  --region us-east-1 --query "Reservations[*].Instances[*].PublicIpAddress" \
+            #  --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text)  
+            #echo $BACKEND_API_URL >> .circleci/ansible/inventory.txt
+            #
+            #cat .circleci/ansible/inventory.txt
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
