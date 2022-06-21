@@ -219,21 +219,35 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
-            # your code here
+            yum install -y curl tar sudo
+            curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+            yum install -y nodejs
       - run:
           name: Get backend url
           command: |
-            # your code here
+            export BACKEND_IP=$(aws ec2 describe-instances \
+              --region us-west-2 --query "Reservations[*].Instances[*].PublicIpAddress" \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --output text)  
             export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
+            echo "API_URL = ${API_URL}"
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            cat frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
-            # your code here
-      - destroy-environment     
+            cd frontend
+            npm install
+            npm run build
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+      
+      - destroy-environment
+      - revert-migrations
                     
   deploy-backend:
     docker:
@@ -248,11 +262,26 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            apk update
             apk add --update ansible
+            apk add --no-cache curl
+            apk add --no-cache openssh-client
+            apk add --no-cache --upgrade bash
+            pip install awscli
       - run:
           name: Deploy backend
           command: |
-            # your code here
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
+      
       - destroy-environment     
 
 
