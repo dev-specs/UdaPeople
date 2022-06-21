@@ -169,9 +169,9 @@ jobs:
             echo $BACKEND_API_URL >> .circleci/ansible/inventory.txt
             echo $BACKEND_API_URL
       - persist_to_workspace:
-          root: ~/
+          root: .circleci/ansible
           paths:
-            - ./.circleci/ansible/inventory.txt
+            - inventory.txt
       - destroy-environment     
 
   configure-infrastructure:
