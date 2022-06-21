@@ -270,7 +270,7 @@ jobs:
             apk add --no-cache --upgrade bash
             apk add sudo
             pip install awscli
-            curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+            curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
             yum install -y nodejs
       - run:
           name: Deploy backend
