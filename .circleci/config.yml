@@ -268,6 +268,7 @@ jobs:
             apk add --no-cache curl
             apk add --no-cache openssh-client
             apk add --no-cache --upgrade bash
+            apk add --no-cache --upgrade sudo
             pip install awscli
             curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
             yum install -y nodejs
