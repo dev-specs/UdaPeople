@@ -100,7 +100,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [backend-build]
       - run:
           name: Run back-end test
           command: |
@@ -128,7 +128,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [backend-build]
       - run:
           name: Scan back-end
           command: |
@@ -252,7 +252,7 @@ jobs:
                     
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - install-aws-cli
@@ -260,20 +260,31 @@ jobs:
           fingerprints: ["bf:fa:cd:4d:a3:9b:5d:ca:bf:d3:59:3d:ad:e1:0d:f1"]
       - attach_workspace:
           at: ~/
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Install dependencies
           command: |
-            apk update
-            apk add --update ansible
-            apk add --no-cache curl
-            apk add --no-cache openssh-client
-            apk add --no-cache --upgrade bash
-            apk add sudo
-            pip install awscli
-            # curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
-            # yum install -y nodejs
-            apk add --no-cache nodejs-current  --repository="http://dl-cdn.alpinelinux.org/alpine/v3.11/community"
-            node --version
+            sudo apt update -y
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install -y python3
+            #sudo apt install awscli -y
+            sudo apt install -y ansible
+            # curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            # sudoo apt install -y nodejs
+           
+            # apk update
+            # apk add --update ansible
+            # apk add --no-cache curl
+            # apk add --no-cache openssh-client
+            # apk add --no-cache --upgrade bash
+            # apk add sudo
+            # pip install awscli
+            # # curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
+            # # yum install -y nodejs
+            # apk add --no-cache nodejs-current  --repository="http://dl-cdn.alpinelinux.org/alpine/v3.11/community"
+            # node --version
       - run:
           name: Deploy backend
           command: |
