@@ -255,7 +255,6 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - install-aws-cli
       - add_ssh_keys:
           fingerprints: ["bf:fa:cd:4d:a3:9b:5d:ca:bf:d3:59:3d:ad:e1:0d:f1"]
       - attach_workspace:
@@ -269,7 +268,7 @@ jobs:
             sudo apt install software-properties-common -y
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install -y python3
-            #sudo apt install awscli -y
+            sudo apt install awscli -y
             sudo apt install -y ansible
             # curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
             # sudoo apt install -y nodejs
