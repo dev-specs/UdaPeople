@@ -402,7 +402,7 @@ jobs:
       - run:
           name: Remove old stacks and files
           command: |
-            export OldWorkflowID=$(curl --insecure https://kvdb.io/AvkUQoZDemUg9AuoubLxCq/migration_<< parameters.Workflow_ID >>)
+            export OldWorkflowID=$(curl --insecure https://kvdb.io/AvkUQoZDemUg9AuoubLxCq/old_workflow_id)
             echo "Old Workflow ID= $OldWorkflowID"
             
             export STACKS=$(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
