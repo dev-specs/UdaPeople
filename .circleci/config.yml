@@ -378,7 +378,7 @@ jobs:
             echo "Old Workflow ID= $OldWorkflowID"
             
             # store workflow id in kvdb
-            curl https://kvdb.io/AvkUQoZDemUg9AuoubLxCq/old_workflow_id  -d "${OldWorkflowID}"
+            curl https://kvdb.io/AvkUQoZDemUg9AuoubLxCq/old_workflow_id -d "${OldWorkflowID}"
       - run:
           name: Update cloudfront distribution
           command: |
