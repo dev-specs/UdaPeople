@@ -18,9 +18,11 @@
 
 - name: Start app
   shell: |
-    cd ~/backend-app/dist
+    # cd ~/backend-app/dist
+    cd ~/backend-app
     pm2 stop default
-    pm2 start main.js
+    # pm2 start main.js
+    pm2 start npm --name backend -- start
 
   register: execute_node
 
