@@ -1,0 +1,8 @@
+Backend URL: http://54.175.53.144:3030/api/status
+
+
+Frontend URL: http://dujk1qy7oyvhh.cloudfront.net/#/employees
+
+
+
+
