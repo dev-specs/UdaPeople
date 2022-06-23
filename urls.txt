@@ -1,8 +1,8 @@
-Backend URL: http://54.175.53.144:3030/api/status
+URL01 (Public repo): https://github.com/dev-specs/UdaPeople
 
+URL02 (public URL for your S3 Bucket): http://udapeople-c99bc57.s3-website-us-east-1.amazonaws.com/
 
-Frontend URL: http://dujk1qy7oyvhh.cloudfront.net/#/employees
+URL03_SCREENSHOT (CloudFront): http://dujk1qy7oyvhh.cloudfront.net/#/employees
 
-
-
+URL04_SCREENSHOT (Backend): http://3.95.31.14:3030/api/status
 
